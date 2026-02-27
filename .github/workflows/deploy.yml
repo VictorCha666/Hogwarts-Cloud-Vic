@@ -20,11 +20,13 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: 'gradle'
     # 3. Compilar con Gradle (subdirectorio Hogwards-Segundo) y generar jar
     - name: Build with Gradle
-      working-directory: Hogwards-Segundo
-      run: ./gradlew clean bootJar -x test
+      uses: gradle/gradle-build-action@v3
+      with:
+        gradle-version: wrapper
+        build-root-directory: Hogwards-Segundo
+        arguments: clean bootJar -x test
     # 4. Login en GitHub Container Registry
     - name: Log in to the Container registry
       uses: docker/login-action@v3
